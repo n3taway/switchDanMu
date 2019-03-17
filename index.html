@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>switchDanMu</title>
+</head>
+
+<body>
+    <button id="player-danmu-btn">按钮</button>
+    <script>
+        //videoContainer mousemove
+        //player-ctrl-wrap
+        //player-danmu-btn
+        //danmu-gap  hover
+        // setTimeout(() => {
+        //     document.querySelector('body').innerHTML = '<button id="player-danmu-btn">按钮</button>'
+        //     var btn = document.querySelector('#player-danmu-btn');
+        //     btn.addEventListener('click', () => {
+        //         console.log('addEventListener单击事件。')
+        //     });
+        // }, 300 * 1000);
+
+
+    var _switchDanMuMsg = document.createElement('div');
+    _switchDanMuMsg.style.height = '40px';
+    _switchDanMuMsg.style.lineHeight = '40px';
+    _switchDanMuMsg.style.width = '100px';
+    _switchDanMuMsg.style.background = '#fff';
+    _switchDanMuMsg.style.color = 'rgba(0, 0, 0, 0.65)';
+    _switchDanMuMsg.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+    _switchDanMuMsg.style.position = 'absolute';
+    _switchDanMuMsg.style.left = 'calc(50% - 50px)';
+    _switchDanMuMsg.style.top = '10%';
+    _switchDanMuMsg.style.borderRadius = '5% ';
+    _switchDanMuMsg.style.textAlign = 'center';
+    _switchDanMuMsg.style.display = 'none';
+    _switchDanMuMsg.style.zIndex = '999999';
+
+    // document.querySelector('video').appendChild(_switchDanMuMsg);
+    // document.querySelector('video').parentNode.appendChild(_switchDanMuMsg)
+    document.body.appendChild(_switchDanMuMsg);
+
+    var switchDanMu = {
+        btn: undefined,
+        showDanMu: true,
+        eventClick: new Event('click'),
+        getBtn: () => {
+            var timer = setInterval(() => {
+                var btn = document.querySelector('#player-danmu-btn');
+                if (btn) {
+                    switchDanMu.btn = btn;
+                    switchDanMu.toggleDanMu();
+                    console.warn('弹幕开关running...');
+                    clearInterval(timer)
+                } else {
+                    switchDanMu.btn = undefined;
+                }
+            }, 1000);
+        },
+        toggleDanMu: () => {
+            document.addEventListener('keyup', e => {
+                if (e.shiftKey && e.keyCode === 68) {
+                    switchDanMu.btn.dispatchEvent(switchDanMu.eventClick);
+                    switchDanMu.showDanMu = !switchDanMu.showDanMu;
+                    document.querySelector('.player-danmu-pane').style.display = 'none';
+                    _switchDanMuMsg.style.display = 'block';
+                    _switchDanMuMsg.innerText = `弹幕已${switchDanMu.showDanMu ? '开' : '关'}`;
+                    var top = 10;
+                    setTimeout(() => {
+                        var timer = setInterval(() => {
+                            console.log('top', top);
+                            if (top <= -10) {
+                                _switchDanMuMsg.style.display = 'none';
+                                _switchDanMuMsg.style.top = '10%';
+                                clearInterval(timer);
+                            }else{
+                                top -= 1;
+                                _switchDanMuMsg.style.top = `${top}%`;
+                            }
+                        }, 15);
+                    }, 1 * 1000);
+                }
+            });
+        },
+        run: () => {
+            switchDanMu.getBtn();
+        },
+    }
+    switchDanMu.run();
+
+
+
+// player-danmu-pane
+    </script>
+</body>
+
+</html>
