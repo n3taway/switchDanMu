@@ -6,6 +6,7 @@
 // @author       n3taway
 // @match        http://www.acfun.cn/*
 // @match        https://www.bilibili.com/*
+// @match        https://live.bilibili.com/*
 // @match        https://www.huya.com/*
 // @match        https://www.douyu.com/*
 // @license      MIT
@@ -33,7 +34,7 @@
     `);
 
     const toolTipWrap = document.createElement('div');
-    toolTipWrap.setAttribute('id','_toolTipWrap_');
+    toolTipWrap.setAttribute('id', '_toolTipWrap_');
     toolTipWrap.setAttribute('style', `
         width: 100%;
         height: 100%;
@@ -50,25 +51,25 @@
         .set('A站', {
             doubleBtn: false,
             url: 'acfun.cn',
-            btnNode: '.danmu-enabled',
+            btnNode: ['.danmu-enabled'],
             optionWrapNode: 'noDiv',
         })
         .set('B站', {
             doubleBtn: false,
             url: 'bilibili.com',
-            btnNode: '.bilibili-player-video-btn.bilibili-player-video-btn-danmaku',
+            btnNode: ['.bilibili-player-video-btn.bilibili-player-video-btn-danmaku', '.live-icon-danmaku-on'],
             optionWrapNode: '.bilibili-player-danmaku-setting-lite-panel',
         })
         .set('虎牙', {
             doubleBtn: false,
             url: 'huya.com',
-            btnNode: '#player-danmu-btn', //开关按钮
+            btnNode: ['#player-danmu-btn'], //开关按钮
             optionWrapNode: '.player-danmu-pane', //弹幕操作提示层
         })
         .set('斗鱼', {
             doubleBtn: true,
             url: 'douyu.com',
-            btnNode: '.showdanmu-42b0ac', //开启按钮
+            btnNode: ['.showdanmu-42b0ac'], //开启按钮
             btnOffNode: '.hidedanmu-5d54e2', //关闭按钮
             optionWrapNode: 'noDiv',
         });
@@ -91,9 +92,9 @@
 
         getBtn() {
             const timer = setInterval(() => {
-                const btn = q(btnNode); //按钮
-                if (btn) {
-                    switchDanMu.btn = btn;
+                const [node] = btnNode.filter(item => q(item));
+                if (node) {
+                    switchDanMu.btn = q(node);
                     switchDanMu.toggleDanMu();
                     q('video').parentNode.appendChild(toolTipWrap); //提示信息与video同层级
                     console.warn('弹幕开关running...');
