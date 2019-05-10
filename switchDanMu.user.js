@@ -58,12 +58,14 @@
             doubleBtn: false,
             url: 'bilibili.com',
             btnNode: ['.bilibili-player-video-btn.bilibili-player-video-btn-danmaku', '.live-icon-danmaku-on'],
+            btnOffNode: '.hidedanmu-5d54e2', //关闭按钮
             optionWrapNode: '.bilibili-player-danmaku-setting-lite-panel',
         })
         .set('虎牙', {
             doubleBtn: false,
             url: 'huya.com',
             btnNode: ['#player-danmu-btn'], //开关按钮
+            btnOffNode: '.hidedanmu-5d54e2', //关闭按钮
             optionWrapNode: '.player-danmu-pane', //弹幕操作提示层
         })
         .set('斗鱼', {
