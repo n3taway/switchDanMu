@@ -45,24 +45,27 @@
         display: block;
     `);
     toolTipWrap.appendChild(toolTip);
-
+    // redBook 408
     const tvConfig = new Map()
         .set('A站', {
             doubleBtn: false,
             url: 'acfun.cn',
             btnNode: '.danmu-enabled',
+            btnOffNode: '.danmu-enabled',
             optionWrapNode: 'noDiv',
         })
         .set('B站', {
             doubleBtn: false,
             url: 'bilibili.com',
             btnNode: '.bilibili-player-video-btn.bilibili-player-video-btn-danmaku',
+            btnOffNode: '.bilibili-player-video-btn.bilibili-player-video-btn-danmaku',
             optionWrapNode: '.bilibili-player-danmaku-setting-lite-panel',
         })
         .set('虎牙', {
             doubleBtn: false,
             url: 'huya.com',
             btnNode: '#player-danmu-btn', //开关按钮
+            btnOffNode: '#player-danmu-btn', //开关按钮
             optionWrapNode: '.player-danmu-pane', //弹幕操作提示层
         })
         .set('斗鱼', {
@@ -84,7 +87,7 @@
         btn: undefined,
         showDanMu: true,
         click: new MouseEvent('click', {
-            'view': window,
+            'view': document.defaultView,
             'bubbles': true,
             'cancelable': true
         }),
